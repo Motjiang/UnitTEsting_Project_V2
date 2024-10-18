@@ -3,6 +3,7 @@ using FluentAssertions.Extensions;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.NetworkInformation;
 using System.Text;
 using System.Threading.Tasks;
 using UnitTEsting_Project_V2.Ping;
@@ -67,5 +68,47 @@ namespace XUnit_Project.Tests.PingTests
             result.Should().BeBefore(1.January(2030));
 
         }
+
+        [Fact]
+        public void NetworkService_GetPingOptions_ReturnObject()
+        {
+            // Arrange
+            var expected = new PingOptions()
+            {
+                DontFragment = true,
+                Ttl = 1
+            };
+
+            //Act
+            var result = _pingService.GetPingOptions();
+
+            //Assert
+            result.Should().NotBeNull();
+            result.Should().BeOfType<PingOptions>();
+            result.Should().BeEquivalentTo(expected);
+            result.DontFragment.Should().BeTrue();
+            result.Ttl.Should().Be(1);
+        }
+
+        [Fact]
+        public void NetworkService_MostRecentPings_ReturnIEnumerable()
+        {
+            // Arrange
+            var expected = new PingOptions()
+            {
+                DontFragment = true,
+                Ttl = 1
+            };
+
+            //Act
+            var result = _pingService.MostRecentPings();
+
+            //Assert
+            result.Should().ContainEquivalentOf(expected);
+            result.Should().Contain(a => a.DontFragment == true);
+
+        }
+
+
     }
 }
