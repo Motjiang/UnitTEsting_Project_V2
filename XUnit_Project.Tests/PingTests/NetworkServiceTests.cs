@@ -10,14 +10,22 @@ namespace XUnit_Project.Tests.PingTests
 {
     public class NetworkServiceTests
     {
+        private readonly NetworkService _pingService;
+        public NetworkServiceTests()
+        {
+            //SUT
+            _pingService = new NetworkService();
+        }
+
+
         [Fact]
         public void NetworkService_SendPing_ReturnString()
         {
             // Arrange
-            var pingService = new NetworkService();
+          
 
             //Act
-            var result = pingService.sendPing();
+            var result = _pingService.sendPing();
 
             //Assert
             result.Should().NotBeNullOrWhiteSpace();
@@ -32,10 +40,10 @@ namespace XUnit_Project.Tests.PingTests
         public void NetworkService_PingTimeout_ReturnInt(int a, int b, int expected)
         {
             // Arrange
-            var pingService = new NetworkService();
+           
 
             //Act
-            var result = pingService.PingTimeout(a, b);
+            var result = _pingService.PingTimeout(a, b);
 
             //Assert
             result.Should().Be(expected);
