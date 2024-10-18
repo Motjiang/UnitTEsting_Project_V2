@@ -1,4 +1,5 @@
-﻿using System;
+﻿using FluentAssertions;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -13,10 +14,15 @@ namespace XUnit_Project.Tests.PingTests
         public void NetworkService_SendPing_ReturnString()
         {
             // Arrange
-           //Act
-           var pingService = new NetworkService();
+            var pingService = new NetworkService();
+
+            //Act
+            var result = pingService.sendPing();
 
             //Assert
+            result.Should().NotBeNullOrWhiteSpace();
+            result.Should().Be("Success: Ping sent");
+            result.Should().Contain("Success", Exactly.Once());
 
         }
     }
