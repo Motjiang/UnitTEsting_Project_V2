@@ -14,5 +14,11 @@ namespace UnitTEsting_Project_V2.Ping
             return "Success: Ping sent";
         }
 
+        // integer method
+        public int PingTimeout(int a, int b)
+        {
+            return a + b;
+        }
+
     }
 }
